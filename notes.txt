@@ -1,0 +1,107 @@
+Kubernetes Developed by Google
+
+Kubernetes Solving:
+
+ 1) High Availability => always up
+ 2) Scalability of the performance
+ 3) Disaster recovery => if data lost backuping data
+
+Kubernetes Architecture:
+
+ 1) at least 1 master node
+ 2) worker nodes runnig kubelet process 
+      => running applications like database, frontend, backend 
+      => kubelets process allows communicating with each other etc.
+ 3) worker nodes where applications are running
+ 4) master nodes runnning kubernetes processes that are essential to run and manage cluster properly
+ 5) master node have also API server which allows cluster to talk with 
+ API, UI and CLI(command line tools)
+ 6) master node has control panel which allows it to keep track of whats happening in the cluster
+ 7) master node has scheduler decides on which node a new Pod should be scheduled, creates pods
+ wrt. availablity
+ 8) master node also has etcd which has kubernetes backing store, backups each node and pod inside
+
+Kubernetes Components:
+
+ Node:
+  * Simple server
+  
+ Pod:
+  * Smallest unit in Kubernetes
+  * Abstraction over container
+  * A layer over container => Kubernetes wants to abstract the container since it should be replaceable
+  * Usually 1 Application per pod is prefered
+  * Pod has its own IP address, Pods can communicate with each other
+  * Pods can die easily => A new one will create and new IP address will be given to it
+  
+ Service:
+  * Permanent IP address for Pods
+  * Lifecycle of service and Pods are not connected, even if it dies service and IP address will stay
+
+ External Service:
+  * Allows applications to be reached from outside => React App, Django Server
+
+ Internal Service:
+  * Allows only internal reach which you would want in Apps like databases.
+
+ Ingress:
+  * Request goes to Ingress and Ingress forwards it to Pod, allows developer for domain, https
+
+ ConfigMap:
+  * External Configuration to applications, environment variables... ex: DB_URL=mongo-db-service
+  * Allows developer to adjust small changes in application without rebuilding and pushing new version
+  * Not for secrets like username or password
+
+ Secret:
+  * Used to store secret data like passwords and username of developer...
+ 
+ Data Storage:
+  * Creates Volume for data created like DB apps.
+  * Can be remote or local.
+  * When Pod dies, data still will exists.
+  * Acts like a external harddrive pluged-in in Kubernetes cluster.
+
+ Deployment: 
+  * You can replicate services using kubernetes on other servers while still using the same database
+  * Service is also a load balancer...
+  * Application like react has no state which means it does not have any local data in server so they
+   can easily replicated.
+  * However, databases have data stored in local which means it has a state.
+  * Databases should share the same storage.
+  * So Deployment is for stateless apps => backend, frontend generally
+
+ Statefulset:
+   * Stateful connects databases together using services their Pods have allows databases to manuplate
+    same storage ( can be remote and local to node ).
+   * StatfulSet must be used for databases apps in kubernetes.
+   * StatefulSet Deployment is not easy...
+   * Host database outside cluster can be thought if using databases inside kubernetes is not must...
+   * However, using databases with statfulSet allows database to be load-balance application.
+   * Using databases in different nodes avoids database to crash when one node crashes...
+
+Summarize Core Components:
+ Pod: abstraction of containers.
+ Service: communication of Pods.
+ Ingress: route traffic into cluster.
+ ConfigMap: External configuration for non-secret data.
+ Secret: External configuration for secret data.
+ Volume: data persistance.
+ Deployment: Deployment for non-stateful applications.
+ StatefulSet: Deployment for statful applications.
+
+What is minikube and kubectl are?
+
+ Minikube:
+  * Minikube allows one node cluster to have Master Processes and Worker Processes to run...
+ 
+ kubectl:
+  * Interacting with cluster and its components like Pods, Services, Secret, ConfigMap, etc.
+  * Api server is the main interaction point for manuplating the components in a cluster, kubectl
+   is talking with Master Node using command-line tools.
+
+
+
+ 
+ 
+
+ 
